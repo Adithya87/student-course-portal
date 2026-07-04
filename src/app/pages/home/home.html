@@ -1,0 +1,47 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <div class="hero-section glass-card">
+    <h1 class="hero-title">Welcome to the {{ portalName }}</h1>
+    <p class="hero-subtitle">
+      Manage your courses, track your GPA, and request enrollments in real time with our modern student center.
+    </p>
+
+    <!-- Hands-On 2 Binding Actions -->
+    <div class="enroll-action">
+      <button class="btn-primary" [disabled]="!isPortalActive" (click)="onEnrollClick()">
+        Enroll Now
+      </button>
+      @if (message) {
+      <p class="enroll-message success-text">{{ message }}</p>
+      }
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card glass-card">
+      <div class="stat-icon courses-icon">📚</div>
+      <div class="stat-info">
+        <span class="stat-label">Courses Available</span>
+        <span class="stat-value">{{ (courses$ | async)?.length || 0 }}</span>
+      </div>
+    </div>
+
+    <div class="stat-card glass-card">
+      <div class="stat-icon enrolled-icon">✍️</div>
+      <div class="stat-info">
+        <span class="stat-label">Enrolled Courses</span>
+        <span class="stat-value">{{ (enrolledCourses$ | async)?.length || 0 }}</span>
+      </div>
+    </div>
+
+    <div class="stat-card glass-card">
+      <div class="stat-icon gpa-icon">🏅</div>
+      <div class="stat-info">
+        <span class="stat-label">Current GPA</span>
+        <span class="stat-value">9.1</span>
+      </div>
+    </div>
+  </div>
+
+</div>

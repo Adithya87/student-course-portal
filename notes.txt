@@ -1,0 +1,17 @@
+angular.json: Configuration file for Angular CLI workspace settings, defining project targets, build configurations, test execution, styles, and assets.
+tsconfig.json: Root TypeScript compiler configuration that sets compilation options and targets for the entire workspace.
+tsconfig.app.json: Application-specific TypeScript configuration extending tsconfig.json, tailoring settings for compiling the main application.
+package.json: Declares npm package dependencies, dev dependencies, scripts (like start, build, test), and metadata for the project.
+src/main.ts: The main entry point of the application that bootstraps the standalone root component or module to run in the browser.
+src/app/app.config.ts: Configures global providers, routing, and system services for the modern standalone Angular application.
+src/app/app.ts: The root component of the application, acting as the main layout container for other views via router-outlet.
+src/index.html: The single, main HTML file served to the client, housing the <app-root> tag where Angular mounts the application.
+
+BUDGETS CONFIGURATION:
+In angular.json under architect > build > configurations > production:
+- type "initial" budget: maximumWarning = 500kB, maximumError = 1MB. Controls the total size of the initial bundle loaded by the browser on page start.
+- type "anyComponentStyle" budget: maximumWarning = 4kB, maximumError = 8kB. Controls the size limit for the CSS styles compiled within any individual component.
+If the size exceeds the warning threshold, Angular CLI shows a warning during build. If it exceeds the error threshold, the build fails.
+
+COMPILED APPLICATION CODE FILE:
+- File name: E:\adithya\projects\course_management\Angular_HandsOn\Adithya\student-course-portal\dist\student-course-portal\browser\main-XE6EV4N2.js (main-*.js) contains the compiled application code.

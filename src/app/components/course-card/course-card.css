@@ -1,0 +1,195 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.course-card.glass-card {
+  padding: 0 !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 16px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effect: lift, shadow glow, and icon rotate */
+.course-card.glass-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  border-color: rgba(112, 26, 44, 0.25);
+  box-shadow: 0 12px 30px rgba(112, 26, 44, 0.1), 0 0 15px rgba(112, 26, 44, 0.05);
+}
+
+.course-card.glass-card:hover .card-cover .cover-icon {
+  transform: scale(1.15) rotate(5deg);
+}
+
+/* Cover section */
+.card-cover {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.card-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(15, 23, 42, 0.15) 100%);
+}
+
+.cover-icon {
+  font-size: 3.5rem;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
+}
+
+.card-body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-grow: 1;
+}
+
+/* Enrolled state styling */
+.course-card.card--enrolled {
+  background: rgba(112, 26, 44, 0.04) !important;
+  border-color: rgba(112, 26, 44, 0.2) !important;
+}
+
+.course-card.card--enrolled .card-cover::before {
+  content: '✓ Enrolled';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(16, 185, 129, 0.85);
+  backdrop-filter: blur(4px);
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 2;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Credits >= 4 styling */
+.course-card.card--full {
+  background: rgba(217, 70, 239, 0.02);
+}
+
+.course-card.card--full .course-credits {
+  color: #d946ef;
+  font-weight: 600;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course-code {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
+.course-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-primary);
+  margin-top: 4px;
+}
+
+.course-credits {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.course-details-expanded {
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: slideDown 0.25s ease-out;
+}
+
+.expanded-desc {
+  margin-top: 4px;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.secondary-actions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.secondary-actions button {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 0.8125rem;
+  border-radius: 8px;
+}
+
+.btn-enroll {
+  width: 100%;
+  justify-content: center;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-unenroll {
+  background: rgba(239, 68, 68, 0.1) !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+  color: var(--error) !important;
+  box-shadow: none !important;
+}
+
+.btn-unenroll:hover {
+  background: rgba(239, 68, 68, 0.18) !important;
+  border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

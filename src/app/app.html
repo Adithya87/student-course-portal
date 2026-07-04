@@ -1,0 +1,12 @@
+<app-header></app-header>
+<main class="app-container">
+  <!-- Global HTTP Loading Spinner Overlay (Hands-On 8 Step 91) -->
+  @if (loadingService.isLoading$ | async) {
+    <div class="global-loading-overlay">
+      <div class="spinner"></div>
+      <p>Updating Portal Data...</p>
+    </div>
+  }
+  
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,22 @@
+<div class="summary-widget-container glass-card">
+  <div class="widget-header">
+    <span class="widget-badge">Singleton DI Widget</span>
+    <h3>Course Catalog Summary</h3>
+  </div>
+  
+  <div class="widget-stats">
+    <div class="stat-item">
+      <span class="stat-val">{{ courses.length }}</span>
+      <span class="stat-lbl">Total Catalog Courses</span>
+    </div>
+  </div>
+  
+  <p class="widget-explanation">
+    This widget shares the same <code>CourseService</code> instance as the course list. 
+    Adding a course here updates the course listing page immediately.
+  </p>
+
+  <button class="btn-primary btn-sm" (click)="addDummyCourse()">
+    + Add Elective Course
+  </button>
+</div>

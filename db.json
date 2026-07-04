@@ -1,0 +1,107 @@
+{
+  "courses": [
+    {
+      "id": "1",
+      "name": "Angular Web Development",
+      "code": "CS101",
+      "credits": 4,
+      "gradeStatus": "passed"
+    },
+    {
+      "id": "2",
+      "name": "Data Structures & Algorithms",
+      "code": "CS102",
+      "credits": 3,
+      "gradeStatus": "pending"
+    },
+    {
+      "id": "3",
+      "name": "Relational Database Systems",
+      "code": "CS201",
+      "credits": 3,
+      "gradeStatus": "passed"
+    },
+    {
+      "id": "4",
+      "name": "Advanced Cloud Architecture",
+      "code": "CS301",
+      "credits": 4,
+      "gradeStatus": "pending"
+    },
+    {
+      "id": "5",
+      "name": "Artificial Intelligence Basics",
+      "code": "CS401",
+      "credits": 2,
+      "gradeStatus": "failed"
+    },
+    {
+      "id": "6",
+      "name": "Digital Signal Processing",
+      "code": "EC301",
+      "credits": 4,
+      "gradeStatus": "passed"
+    },
+    {
+      "id": "7",
+      "name": "Microprocessors & Microcontrollers",
+      "code": "EC302",
+      "credits": 3,
+      "gradeStatus": "pending"
+    },
+    {
+      "id": "8",
+      "name": "Electromagnetic Field Theory",
+      "code": "EC204",
+      "credits": 3,
+      "gradeStatus": "failed"
+    },
+    {
+      "id": "9",
+      "name": "VLSI Design & Technology",
+      "code": "EC402",
+      "credits": 4,
+      "gradeStatus": "passed"
+    },
+    {
+      "id": "10",
+      "name": "Wireless Communication Networks",
+      "code": "EC403",
+      "credits": 3,
+      "gradeStatus": "pending"
+    },
+    {
+      "id": "11",
+      "name": "Control Systems Theory",
+      "code": "EC304",
+      "credits": 3,
+      "gradeStatus": "passed"
+    }
+  ],
+  "students": [
+    {
+      "id": "1",
+      "name": "Adithya",
+      "email": "adithya@college.edu",
+      "gpa": 3.8
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "1",
+      "studentId": "1",
+      "courseId": "2"
+    },
+    {
+      "id": "2",
+      "studentId": "1",
+      "courseId": "7"
+    },
+    {
+      "id": "3",
+      "studentId": "1",
+      "courseId": "10"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

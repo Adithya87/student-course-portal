@@ -1,0 +1,119 @@
+<div class="profile-container">
+  <!-- Profile Info Card -->
+  <div class="profile-card glass-card">
+    <div class="profile-top-section">
+      <div class="photo-column">
+        <div class="student-photo-wrapper">
+          <img class="student-photo" src="/student_photo.png" alt="Student Photo">
+        </div>
+      </div>
+      <div class="meta-column">
+        <h2 class="student-name">{{ studentName }}</h2>
+        <div class="details-grid">
+          <div class="detail-row">
+            <span class="detail-label">Email:</span>
+            <span class="detail-value">{{ studentEmail }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Department:</span>
+            <span class="detail-value">{{ department }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Semester:</span>
+            <span class="detail-value">{{ semester }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">CGPA:</span>
+            <span class="detail-value text-gpa font-bold">{{ gpa }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enrolled Courses Section -->
+  <div class="enrolled-section glass-card">
+    <h3 class="section-title">Enrolled Courses</h3>
+    <p class="section-subtitle">Below are the courses you are currently registered in.</p>
+
+    <div class="course-list">
+      @if (enrolledCourses$ | async; as courses) {
+      @for (course of courses; track course.id) {
+      <div class="enrolled-item glass-card">
+        <div class="item-meta">
+          <span class="course-code">{{ course.code }}</span>
+          <h4>{{ course.name }}</h4>
+          <p>{{ course.credits }} Credits | Status: <span class="grade-status text-success">{{ course.gradeStatus
+              }}</span></p>
+        </div>
+        <button class="btn-danger btn-sm" (click)="unenroll(course.id)">
+          Unenroll
+        </button>
+      </div>
+      } @empty {
+      <div class="empty-enrollments">
+        <span class="empty-icon">🎒</span>
+        <h4>No Enrolled Courses</h4>
+        <p>You have not registered for any active courses. Check the course list to enroll.</p>
+      </div>
+      }
+      }
+    </div>
+  </div>
+
+  <!-- Completed Courses Section -->
+  <div class="completed-section glass-card">
+    <h3 class="section-title">Completed Courses</h3>
+    <p class="section-subtitle">Below are the courses you have already completed/passed.</p>
+
+    <div class="course-list">
+      @if (completedCourses$ | async; as completedCourses) {
+      @for (course of completedCourses; track course.id) {
+      <div class="enrolled-item glass-card completed-item">
+        <div class="item-meta">
+          <span class="course-code">{{ course.code }}</span>
+          <h4>{{ course.name }}</h4>
+          <p>{{ course.credits }} Credits | Status: <span class="grade-status text-success">{{ course.gradeStatus
+              }}</span></p>
+        </div>
+        <div class="completed-tag">Passed ✓</div>
+      </div>
+      } @empty {
+      <div class="empty-enrollments">
+        <span class="empty-icon">🎓</span>
+        <h4>No Completed Courses Yet</h4>
+        <p>You have not passed/completed any courses in your current record.</p>
+      </div>
+      }
+      }
+    </div>
+  </div>
+
+  <!-- Failed Courses Section -->
+  <div class="failed-section glass-card">
+    <h3 class="section-title">Failed Courses</h3>
+    <p class="section-subtitle">Below are the courses you have failed in your academic record.</p>
+
+    <div class="course-list">
+      @if (failedCourses$ | async; as failedCourses) {
+      @for (course of failedCourses; track course.id) {
+      <div class="enrolled-item glass-card failed-item">
+        <div class="item-meta">
+          <span class="course-code">{{ course.code }}</span>
+          <h4>{{ course.name }}</h4>
+          <p>{{ course.credits }} Credits | Status: <span class="grade-status text-danger">{{ course.gradeStatus
+              }}</span></p>
+        </div>
+        <div class="failed-tag">Failed ✗</div>
+      </div>
+      } @empty {
+      <div class="empty-enrollments">
+        <span class="empty-icon">📝</span>
+        <h4>No Failed Courses</h4>
+        <p>Excellent! You do not have any failed courses on your record.</p>
+      </div>
+      }
+      }
+    </div>
+  </div>
+</div>

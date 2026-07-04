@@ -1,0 +1,57 @@
+<div class="detail-container">
+  @if (course) {
+    <div class="detail-card glass-card">
+      <div class="card-header">
+        <span class="course-code">{{ course.code }}</span>
+        <span class="badge" [ngClass]="{
+          'badge--success': course.gradeStatus === 'passed',
+          'badge--danger': course.gradeStatus === 'failed',
+          'badge--secondary': course.gradeStatus === 'pending'
+        }">{{ course.gradeStatus }}</span>
+      </div>
+
+      <h1 class="course-title">{{ course.name }}</h1>
+      <p class="course-credits">{{ course.credits | creditLabel }}</p>
+
+      <div class="info-block">
+        <h3>Description</h3>
+        <p>This is a core course offered by the department. It covers theoretical and practical foundations, preparing students for advanced study and practical industry application.</p>
+      </div>
+
+      <!-- Enrolled Students list from API (Hands-On 8 Step 87) -->
+      <div class="info-block">
+        <h3>Enrolled Students (From API)</h3>
+        @if (enrolledStudents.length > 0) {
+          <ul class="student-list">
+            @for (student of enrolledStudents; track student.id) {
+              <li>
+                <span class="user-icon">👤</span> 
+                <strong>Student ID:</strong> {{ student.studentId }} (Enrollment Record #{{ student.id }})
+              </li>
+            }
+          </ul>
+        } @else {
+          <p class="no-students">No students currently registered for this course.</p>
+        }
+      </div>
+
+      <div class="info-block">
+        <h3>Academic Policy</h3>
+        <p>Standard course prerequisites apply. Enrolling requires confirmation of passing grades in foundational coursework where specified.</p>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn-secondary" (click)="goBack()">Back to List</button>
+        <span class="enrollment-indicator" [ngClass]="{'text-enrolled': course.enrolled}">
+          {{ course.enrolled ? '✓ Registered in this course' : 'Not registered' }}
+        </span>
+      </div>
+    </div>
+  } @else {
+    <div class="error-card glass-card">
+      <h2>Course Not Found</h2>
+      <p>The course ID requested does not exist or may have been removed from the curriculum catalog.</p>
+      <button class="btn-primary" (click)="goBack()">Back to Catalog</button>
+    </div>
+  }
+</div>

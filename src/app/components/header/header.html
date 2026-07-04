@@ -1,0 +1,20 @@
+<header class="header">
+  <div class="header-container">
+    <div class="logo">
+      <span class="logo-text">Student Course Portal</span>
+    </div>
+    <nav class="nav">
+      @if (authService.isLoggedIn) {
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Home</a>
+      <a routerLink="/courses" routerLinkActive="active" class="nav-link">Courses</a>
+      <a routerLink="/profile" routerLinkActive="active" class="nav-link">Profile</a>
+      <a routerLink="/enroll" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+        class="nav-link btn-nav">Enroll (Template)</a>
+      <a routerLink="/enroll/reactive" routerLinkActive="active" class="nav-link btn-nav">Enroll (Reactive)</a>
+      <button (click)="onLogout()" class="nav-link btn-logout">Logout</button>
+      } @else {
+      <a routerLink="/login" routerLinkActive="active" class="nav-link btn-login">Login</a>
+      }
+    </nav>
+  </div>
+</header>

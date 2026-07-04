@@ -1,0 +1,59 @@
+<div class="course-card glass-card" [ngClass]="cardClasses">
+  <!-- Course Image/Icon Cover -->
+  <div class="card-cover" [style.background]="getCourseGradient()">
+    <span class="cover-icon">{{ getCourseIcon() }}</span>
+  </div>
+
+  <div class="card-body">
+    <div class="card-header">
+      <span class="course-code">{{ course.code }}</span>
+
+      <!-- Hands-On 3: Switch Control Flow for badges -->
+      @switch (course.gradeStatus) {
+      @case ('passed') {
+      <span class="badge badge--success">Passed</span>
+      }
+      @case ('failed') {
+      <span class="badge badge--danger">Failed</span>
+      }
+      @case ('pending') {
+      <span class="badge badge--secondary">Pending</span>
+      }
+      }
+    </div>
+
+    <h3 class="course-name">{{ course.name }}</h3>
+
+    <p class="course-credits">
+      {{ course.credits | creditLabel }}
+    </p>
+
+    <!-- Expanded Details Section -->
+    @if (isExpanded) {
+    <div class="course-details-expanded">
+      <p><strong>Course Database ID:</strong> {{ course.id }}</p>
+      <p class="expanded-desc">
+        This course counts towards core requirements. Standard letter grading is applied. Topics cover essential
+        concepts, practical tutorials, and projects.
+      </p>
+    </div>
+    }
+
+    <div class="card-actions">
+      <div class="secondary-actions">
+        <button type="button" class="btn-secondary btn-sm" (click)="toggleDetails(); $event.stopPropagation()"
+          title="Toggle inline details">
+          {{ isExpanded ? 'Collapse' : 'Expand' }}
+        </button>
+        <button type="button" class="btn-secondary btn-sm"
+          (click)="viewDetailsRequested.emit(course.id); $event.stopPropagation()">
+          View Details
+        </button>
+      </div>
+      <button type="button" class="btn-primary btn-sm btn-enroll" [class.btn-unenroll]="enrolled"
+        (click)="enrollRequested.emit(course.id); $event.stopPropagation()">
+        <span>{{ enrolled ? 'Unenroll' : (course.gradeStatus === 'passed' ? 'Re enroll' : 'Enroll') }}</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 120px);
+    padding: 24px 0;
+}
+
+.login-card {
+    max-width: 440px;
+    width: 100%;
+    padding: 40px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-title {
+    font-size: 1.75rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+.login-subtitle {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: -12px;
+    line-height: 1.5;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.btn-login-submit {
+    width: 100%;
+    justify-content: center;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.error-alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: var(--error);
+    font-size: 0.875rem;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.error-icon {
+    font-weight: bold;
+}
+
+.demo-credentials-panel {
+    margin-top: 8px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+}
+
+.demo-credentials-panel h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-light);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.demo-cands {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.8125rem;
+}
+
+.demo-cands code {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 0.8125rem;
+    font-family: Consolas, monospace;
+}
+
+/* Spinner inside button */
+.btn-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

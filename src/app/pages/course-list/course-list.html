@@ -1,0 +1,102 @@
+<div class="courses-container">
+  <div class="list-header glass-card">
+    <h1 class="page-title">Available Courses</h1>
+    <p class="page-description">Browse academic courses, filter by credits or status, and manage your enrollment.</p>
+  </div>
+
+  <!-- Search & Dropdown Filters Section -->
+  <div class="controls-section glass-card">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="form-control search-input" placeholder="Filter courses by name or code (e.g. CS101)..."
+        [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()">
+    </div>
+
+    <div class="filters-row">
+      <div class="filter-group">
+        <label class="filter-label">Grade Status</label>
+        <div class="select-wrapper">
+          <select class="form-control filter-select" [(ngModel)]="gradeStatusFilter" (change)="onFilterChange()">
+            <option value="all">All Statuses</option>
+            <option value="passed">Passed</option>
+            <option value="pending">Pending</option>
+            <option value="failed">Failed</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Credits</label>
+        <div class="select-wrapper">
+          <select class="form-control filter-select" [(ngModel)]="creditsFilter" (change)="onFilterChange()">
+            <option value="all">All Credits</option>
+            <option value="2">2 Credits</option>
+            <option value="3">3 Credits</option>
+            <option value="4">4 Credits</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Enrollment Status</label>
+        <div class="select-wrapper">
+          <select class="form-control filter-select" [(ngModel)]="enrollmentFilter" (change)="onFilterChange()">
+            <option value="all">All Statuses</option>
+            <option value="enrolled">Enrolled</option>
+            <option value="not_enrolled">Not Enrolled</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Alert State (Hands-On 8 Step 84 & Hands-On 9 error selector) -->
+  @if (errorMessage$ | async; as errorMsg) {
+  <div class="error-alert glass-card">
+    <span class="error-icon">⚠</span>
+    <div class="error-content">
+      <h4>Connection Error</h4>
+      <p>{{ errorMsg }}</p>
+    </div>
+  </div>
+  }
+
+  <!-- Loading State (Hands-On 3 & Hands-On 9 loading selector) -->
+  @if (isLoading$ | async) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading courses. Please wait...</p>
+  </div>
+  } @else {
+  <!-- Main Content Grid -->
+  <div class="grid-section">
+    @if (filteredCourses$ | async; as courseList) {
+    @if (courseList.length > 0) {
+    <div class="courses-grid">
+      @for (course of courseList; track trackByCourseId($index, course)) {
+      <app-course-card [course]="course" [enrolled]="(enrolledIds$ | async)?.includes(course.id) || false"
+        (enrollRequested)="onEnroll($event)" (viewDetailsRequested)="viewDetails($event)"
+        [appHighlight]="'rgba(99, 102, 241, 0.08)'"></app-course-card>
+      }
+    </div>
+    } @else {
+    <!-- Empty State Fallback (Hands-On 3) -->
+    <div class="empty-state glass-card">
+      <span class="empty-icon">📂</span>
+      <h3>No courses available</h3>
+      <p>We couldn't find any courses matching your search criteria.</p>
+    </div>
+    }
+    }
+  </div>
+
+  <!-- Selected Course Feedback (Hands-On 2) -->
+  @if (selectedCourseId) {
+  <div class="selected-course-bar glass-card">
+    <span class="bell-icon">🔔</span>
+    <p>You have selected course ID: <strong class="highlight-text">{{ selectedCourseId }}</strong>. You can click
+      'Unenroll' to undo.</p>
+  </div>
+  }
+  }
+</div>

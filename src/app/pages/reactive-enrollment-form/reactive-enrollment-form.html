@@ -1,0 +1,164 @@
+<div class="form-container">
+  <div class="form-header glass-card">
+    <h1 class="page-title">Course Enrollment (Reactive Form)</h1>
+    <p class="page-description">Request course enrollments with advanced reactive state validation and dynamic sections.</p>
+  </div>
+
+  <form [formGroup]="enrollForm" (ngSubmit)="onSubmit()" class="glass-card enrollment-form" novalidate>
+    <!-- Student Name -->
+    <div class="form-group">
+      <label class="form-label" for="studentName">Student Name</label>
+      <input 
+        id="studentName"
+        type="text" 
+        formControlName="studentName" 
+        class="form-control"
+        placeholder="Enter your full name"
+      >
+      @if (enrollForm.get('studentName')?.touched && enrollForm.get('studentName')?.errors) {
+        <div class="error-container">
+          @if (enrollForm.get('studentName')?.hasError('required')) {
+            <span class="error-message">Name is required.</span>
+          }
+          @if (enrollForm.get('studentName')?.hasError('minlength')) {
+            <span class="error-message">Name must be at least 3 characters.</span>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Student Email (with async pending feedback) -->
+    <div class="form-group">
+      <label class="form-label" for="studentEmail">Email Address</label>
+      <div class="input-relative">
+        <input 
+          id="studentEmail"
+          type="email" 
+          formControlName="studentEmail" 
+          class="form-control"
+          placeholder="student@college.edu"
+        >
+        @if (enrollForm.get('studentEmail')?.pending) {
+          <div class="input-spinner-feedback">
+            <div class="mini-spinner"></div>
+            <span>Checking availability...</span>
+          </div>
+        }
+      </div>
+      @if (enrollForm.get('studentEmail')?.touched && enrollForm.get('studentEmail')?.errors) {
+        <div class="error-container">
+          @if (enrollForm.get('studentEmail')?.hasError('required')) {
+            <span class="error-message">Email is required.</span>
+          }
+          @if (enrollForm.get('studentEmail')?.hasError('email')) {
+            <span class="error-message">Please enter a valid email address.</span>
+          }
+          @if (enrollForm.get('studentEmail')?.hasError('emailTaken')) {
+            <span class="error-message">This email is already registered/taken (mock rule: contains 'test@').</span>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Course ID (with custom sync validator error) -->
+    <div class="form-group">
+      <label class="form-label" for="courseId">Course ID</label>
+      <input 
+        id="courseId"
+        type="text" 
+        formControlName="courseId" 
+        class="form-control"
+        placeholder="Enter Course ID (e.g. CS101)"
+      >
+      @if (enrollForm.get('courseId')?.touched && enrollForm.get('courseId')?.errors) {
+        <div class="error-container">
+          @if (enrollForm.get('courseId')?.hasError('required')) {
+            <span class="error-message">Course ID is required.</span>
+          }
+          @if (enrollForm.get('courseId')?.hasError('noCourseCode')) {
+            <span class="error-message">Course code starting with XX is not allowed.</span>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Preferred Semester -->
+    <div class="form-group">
+      <label class="form-label" for="preferredSemester">Preferred Semester</label>
+      <select id="preferredSemester" formControlName="preferredSemester" class="form-control">
+        <option value="Odd">Odd Semester</option>
+        <option value="Even">Even Semester</option>
+      </select>
+    </div>
+
+    <!-- Dynamic Section: FormArray for additional courses (Hands-On 5 Task 2 Steps 56 & 57) -->
+    <div class="form-array-section glass-card">
+      <div class="array-header">
+        <h3>Additional Courses</h3>
+        <button type="button" class="btn-secondary btn-sm" (click)="addCourse()">
+          + Add Course
+        </button>
+      </div>
+      
+      <p class="section-desc">You can apply for multiple concurrent courses here.</p>
+
+      <div formArrayName="additionalCourses" class="array-list">
+        @for (ctrl of additionalCourses.controls; track $index) {
+          <div class="array-item">
+            <div class="form-group array-field">
+              <input 
+                [formControlName]="$index" 
+                class="form-control" 
+                placeholder="Enter additional course ID/code"
+              >
+              @if (ctrl.touched && ctrl.invalid) {
+                <span class="error-message">This field is required.</span>
+              }
+            </div>
+            <button type="button" class="btn-danger btn-sm" (click)="removeCourse($index)">
+              Remove
+            </button>
+          </div>
+        } @empty {
+          <p class="no-array-items">No additional courses added. Click "+ Add Course" to add one.</p>
+        }
+      </div>
+    </div>
+
+    <!-- Agree to Terms -->
+    <div class="form-group checkbox-group">
+      <label class="checkbox-label">
+        <input type="checkbox" formControlName="agreeToTerms">
+        I agree to the academic honor code and course terms.
+      </label>
+      @if (enrollForm.get('agreeToTerms')?.touched && enrollForm.get('agreeToTerms')?.errors) {
+        <div class="error-container">
+          @if (enrollForm.get('agreeToTerms')?.hasError('required')) {
+            <span class="error-message">You must agree to the terms before enrolling.</span>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" (click)="onReset()">
+        Reset
+      </button>
+      <button type="submit" class="btn-primary" [disabled]="enrollForm.invalid">
+        Submit Application
+      </button>
+    </div>
+
+    <!-- Success Message Alert -->
+    @if (submitted) {
+      <div class="success-alert">
+        <span class="alert-icon">✓</span>
+        <div class="alert-content">
+          <h4>Success!</h4>
+          <p>Enrollment request submitted successfully!</p>
+        </div>
+      </div>
+    }
+  </form>
+</div>
