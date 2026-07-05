@@ -42,10 +42,7 @@ export class CourseList implements OnInit {
 
   enrollmentFilter = 'all';
   private enrollmentFilterSubject = new BehaviorSubject<string>('all');
-
   filteredCourses$: Observable<Course[]>;
-  selectedCourseId: number | null = null;
-
   constructor(
     private store: Store,
     private route: ActivatedRoute,
@@ -113,8 +110,6 @@ export class CourseList implements OnInit {
 
   // Hands-On 9 Task 2 Step 100: Dispatch actions for enrollment changes
   onEnroll(courseId: number): void {
-    this.selectedCourseId = courseId;
-
     // Read current enrolled state using first() to prevent synchronous recursion loop
     this.enrolledIds$.pipe(first()).subscribe(ids => {
       const isEnrolled = ids.includes(courseId);
