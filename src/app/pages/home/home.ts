@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { Course } from '../../models/course.model';
 import * as CourseSelectors from '../../store/course/course.selectors';
 import * as EnrollmentSelectors from '../../store/enrollment/enrollment.selectors';
@@ -28,7 +29,7 @@ export class Home implements OnInit, OnDestroy {
   courses$: Observable<Course[]>;
   enrolledCourses$: Observable<Course[]>;
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private router: Router) {
     this.courses$ = this.store.select(CourseSelectors.selectAllCourses);
     this.enrolledCourses$ = this.store.select(EnrollmentSelectors.selectEnrolledCourses);
   }
@@ -43,5 +44,6 @@ export class Home implements OnInit, OnDestroy {
 
   onEnrollClick(): void {
     this.message = 'Enrollment opened!';
+    this.router.navigate(['/courses']);
   }
 }
